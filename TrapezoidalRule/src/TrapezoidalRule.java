@@ -1,6 +1,4 @@
 public class TrapezoidalRule {
-
-
         /**
          * f(x) = x^2 enter function which should be integrated
          **/
@@ -9,24 +7,37 @@ public class TrapezoidalRule {
         }
 
         /**
-         * Integrate f from a(upper border) to b(lower border) using the trapezoidal rule.
-         * Increase N(Number of support points) for more precision.
-        **/
-        static double integrate(double a, double b, int N) {
-            double h = (b - a) / N;              // step size
-            double sum = 0.5 * (f(a) + f(b));    // area
-            for (int i = 1; i < N; i++) {
-                double x = a + h * i;
+         *
+         * @param gridPoints number of grid points
+         * @return gridPoints if gridPoints is greater than 0, otherwise return 1
+         */
+        static int validateGridPoints(int gridPoints) {
+                return gridPoints == 0 ? 1 : gridPoints;
+            }
+        /**
+         * Integrate f from lowerBorder to upperBorder using the trapezoidal rule.
+         * Increase gridPoints for more precision.
+         * @param lowerBorder lower border of integration
+         * @param upperBorder upper border of integration
+         * @param gridPoints number of grid points
+         * @return integral of f from lowerBorder to upperBorder
+         * Quelle: https://www.wikipedia.org/wiki/Trapezoidal_rule
+         **/
+        static double integrate(double lowerBorder, double upperBorder, int gridPoints) {
+            gridPoints = validateGridPoints(gridPoints);
+            double trapezoidalWidth = (upperBorder - lowerBorder) / gridPoints;
+            double sum = 0.5 * (f(lowerBorder) + f(upperBorder));
+            for (int i = 1; i < gridPoints; i++) {
+                double x = lowerBorder + trapezoidalWidth * i;
                 sum = sum + f(x);
             }
-
-            return sum * h;
+            return sum * trapezoidalWidth;
         }
 
         public static void main(String[] args) {
-            double a = 0;
-            double b = 1;
-            System.out.println(integrate(a, b, 1000));
+            double lowerBorder = 0;
+            double upperBorder = 1;
+            System.out.println(integrate(lowerBorder, upperBorder, 1000));
         }
 
     }
