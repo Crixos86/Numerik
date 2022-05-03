@@ -1,3 +1,5 @@
+package TrapezoidalRule;
+
 public class TrapezoidalRule {
         /**
          * f(x) = x^2 enter function which should be integrated
